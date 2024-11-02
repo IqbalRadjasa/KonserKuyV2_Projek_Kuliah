@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+
+body {
+  height: 110vh;
+  background-color: #191919;
+}
+
+
+/*.container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}*/
+
+.box {
+  background-color: #f0ece596;
+  width: fit-content;
+  margin-top: 10vh;
+  border-radius: 10px;
+}
+
+.box form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 9rem;
+  align-items: center;
+}
+
+form h3 {
+  font-family: 'Merriweather', serif;
+  text-align: center;
+  margin-bottom: 0;
+  font-size: 30px;
+}
+
+form hr {
+  border: 1px solid #161a30;
+  width: 19rem;
+  margin-bottom: 5vh;
+}
+
+form input {
+  border: 2px solid #31304d;
+  border-radius: 4px;
+  width: 17rem;
+  padding: 8px;
+  font-size: 13px;
+  margin-bottom: 3vh;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+form input:first-child {
+  margin-bottom: 0;
+}
+
+form button {
+  width: 7rem;
+  border-radius: 4px;
+  padding: 8px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0ece5;
+  margin-bottom: 2vh;
+}
+
+#create_text{
+    margin-left: 20px;
+}
+
+.ext_button button a{
+    text-decoration: none;
+    color: black;
+}
+
+.ext_button{
+    margin-bottom: 30px;
+}

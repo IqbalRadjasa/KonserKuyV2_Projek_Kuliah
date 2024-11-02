@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PreviewServlet.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;KonserKuy_v2&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">servlet</a> &gt; <span class="el_source">PreviewServlet.java</span></div><h1>PreviewServlet.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package servlet;
+
+import DAO.DAOConcert;
+import com.google.gson.Gson;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
+import pojo.Users;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import pojo.Concert;
+import pojo.ConcertTicket;
+import pojo.PaymentHistory;
+
+
+/**
+ *
+ * @author ACO
+ */
+@WebServlet(name = &quot;PreviewServlet&quot;, urlPatterns = {&quot;/PreviewServlet&quot;})
+<span class="nc" id="L32">public class PreviewServlet extends HttpServlet {</span>
+
+    /**
+     * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+<span class="nc" id="L45">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L46">        try (PrintWriter out = response.getWriter()) {</span>
+<span class="nc bnc" id="L47" title="All 4 branches missed.">        }</span>
+<span class="nc" id="L48">    }</span>
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
+<span class="nc" id="L51">    /**</span>
+<span class="nc" id="L52">     * Handles the HTTP &lt;code&gt;GET&lt;/code&gt; method.</span>
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="nc" id="L61">    response.setContentType(&quot;application/json&quot;);</span>
+<span class="nc" id="L62">    response.setCharacterEncoding(&quot;UTF-8&quot;);</span>
+<span class="nc" id="L63">    PrintWriter out = response.getWriter();</span>
+
+<span class="nc" id="L65">    DAOConcert daoConcert = new DAOConcert();</span>
+<span class="nc" id="L66">    String concertId = request.getParameter(&quot;concertId&quot;);</span>
+<span class="nc" id="L67">    Concert concert = daoConcert.getConcertById(Integer.parseInt(concertId)); // Fetch single concert directly</span>
+
+<span class="nc" id="L69">    HttpSession session = request.getSession(false);</span>
+<span class="nc" id="L70">    JSONObject jsonResponse = new JSONObject(); // Create a JSONObject to hold the response</span>
+<span class="nc" id="L71"></span>
+<span class="nc bnc" id="L72" title="All 4 branches missed.">    if (session != null &amp;&amp; session.getAttribute(&quot;user&quot;) != null) {</span>
+<span class="nc" id="L73">        Users user = (Users) session.getAttribute(&quot;user&quot;);</span>
+
+        // Add user details to the JSON response
+<span class="nc" id="L76">        jsonResponse.put(&quot;status&quot;, &quot;success&quot;);</span>
+<span class="nc" id="L77">        jsonResponse.put(&quot;userId&quot;, user.getId());</span>
+<span class="nc" id="L78">        jsonResponse.put(&quot;username&quot;, user.getUsername());</span>
+<span class="nc" id="L79">        jsonResponse.put(&quot;email&quot;, user.getEmail());</span>
+<span class="nc" id="L80">        jsonResponse.put(&quot;password&quot;, user.getPassword());</span>
+
+        // Check if the concert is not null and construct the concert JSON object
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (concert != null) {</span>
+<span class="nc" id="L84">            JSONObject concertJson = new JSONObject();</span>
+<span class="nc" id="L85">            concertJson.put(&quot;id&quot;, concert.getId());</span>
+<span class="nc" id="L86">            concertJson.put(&quot;name&quot;, concert.getName());</span>
+<span class="nc" id="L87">            concertJson.put(&quot;desc&quot;, concert.getDesc());</span>
+<span class="nc" id="L88">            concertJson.put(&quot;quantity&quot;, concert.getQuantity());</span>
+<span class="nc" id="L89">            concertJson.put(&quot;price&quot;, concert.getPrice());</span>
+<span class="nc" id="L90">            concertJson.put(&quot;dateOfConcert&quot;, concert.getDateOfConcert());</span>
+<span class="nc" id="L91">            concertJson.put(&quot;trailerId&quot;, concert.getConcertTrailer().getId());</span>
+<span class="nc" id="L92">            concertJson.put(&quot;viewConcertId&quot;, concert.getConcertView().getId());</span>
+<span class="nc" id="L93">            concertJson.put(&quot;createdAt&quot;, concert.getCreatedAt());</span>
+<span class="nc" id="L94">            concertJson.put(&quot;updatedAt&quot;, concert.getUpdatedAt());</span>
+
+            // Add concertView details
+<span class="nc" id="L97">            JSONObject concertViewJson = new JSONObject();</span>
+<span class="nc" id="L98">            concertViewJson.put(&quot;id&quot;, concert.getConcertView().getId());</span>
+<span class="nc" id="L99">            concertViewJson.put(&quot;image&quot;, concert.getConcertView().getImage());</span>
+<span class="nc" id="L100">            concertJson.put(&quot;concertView&quot;, concertViewJson);</span>
+
+            // Add concertTrailer details
+<span class="nc" id="L103">            JSONObject concertTrailerJson = new JSONObject();</span>
+<span class="nc" id="L104">            concertTrailerJson.put(&quot;id&quot;, concert.getConcertTrailer().getId());</span>
+<span class="nc" id="L105">            concertTrailerJson.put(&quot;trailer&quot;, concert.getConcertTrailer().getTrailer());</span>
+<span class="nc" id="L106">            concertJson.put(&quot;concertTrailer&quot;, concertTrailerJson);</span>
+
+            // Add the concert JSON object to the response
+<span class="nc" id="L109">            jsonResponse.put(&quot;concert&quot;, concertJson);</span>
+<span class="nc" id="L110">        } else {</span>
+<span class="nc" id="L111">            jsonResponse.put(&quot;status&quot;, &quot;error&quot;);</span>
+<span class="nc" id="L112">            jsonResponse.put(&quot;message&quot;, &quot;Concert not found&quot;);</span>
+        }
+
+<span class="nc" id="L115">    } else {</span>
+<span class="nc" id="L116">        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="nc" id="L117">        jsonResponse.put(&quot;status&quot;, &quot;error&quot;);</span>
+<span class="nc" id="L118">        jsonResponse.put(&quot;message&quot;, &quot;No user session found&quot;);</span>
+    }
+
+    // Send the JSON response
+<span class="nc" id="L122">    out.print(jsonResponse.toString());</span>
+<span class="nc" id="L123">    out.flush();</span>
+<span class="nc" id="L124">}</span>
+
+
+
+
+    /**
+     * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="nc" id="L139">        String userId = request.getParameter(&quot;userId&quot;);</span>
+<span class="nc" id="L140">        String concertId = request.getParameter(&quot;concertId&quot;);</span>
+<span class="nc" id="L141">        String concertName = request.getParameter(&quot;concertName&quot;);</span>
+<span class="nc" id="L142">        String fullname = request.getParameter(&quot;fullname&quot;);</span>
+<span class="nc" id="L143">        String phoneNumber = request.getParameter(&quot;phoneNumber&quot;);</span>
+<span class="nc" id="L144">        String idCard = request.getParameter(&quot;idCard&quot;);</span>
+        
+<span class="nc" id="L146">        ConcertTicket ticket = new ConcertTicket();</span>
+<span class="nc" id="L147">        ticket.setUserId(Integer.parseInt(userId));</span>
+<span class="nc" id="L148">        ticket.setConcertId(Integer.parseInt(concertId));</span>
+<span class="nc" id="L149">        ticket.setFullName(fullname);</span>
+<span class="nc" id="L150">        ticket.setPhoneNumber(phoneNumber);</span>
+<span class="nc" id="L151">        ticket.setIdCard(idCard);</span>
+
+<span class="nc" id="L153">        ConcertTicket ticketResult = ticket.insert();</span>
+        
+<span class="nc" id="L155">        PaymentHistory history = new PaymentHistory();</span>
+<span class="nc" id="L156">        history.setUserId(Integer.parseInt(userId));</span>
+<span class="nc" id="L157">        history.setConcertName(concertName);</span>
+        
+<span class="nc" id="L159">        PaymentHistory historyResult = history.insert();</span>
+
+<span class="nc" id="L161">        response.setContentType(&quot;application/json&quot;);</span>
+<span class="nc" id="L162">        response.setCharacterEncoding(&quot;UTF-8&quot;);</span>
+
+<span class="nc" id="L164">        PrintWriter out = response.getWriter();</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (ticketResult != null) {</span>
+<span class="nc" id="L166">            out.write(&quot;{\&quot;status\&quot;:\&quot;success\&quot;, \&quot;message\&quot;:\&quot;Booking successful\&quot;}&quot;);</span>
+        } else {
+<span class="nc" id="L168">            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="nc" id="L169">            out.write(&quot;{\&quot;status\&quot;:\&quot;error\&quot;, \&quot;message\&quot;:\&quot;Invalid credentials\&quot;}&quot;);</span>
+        }
+<span class="nc" id="L171">        out.flush();</span>
+<span class="nc" id="L172">    }</span>
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+<span class="nc" id="L181">        return &quot;Short description&quot;;</span>
+    }// &lt;/editor-fold&gt;
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

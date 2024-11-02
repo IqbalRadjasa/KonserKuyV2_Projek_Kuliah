@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 20, 2024 9:19:41 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojo.ConcertTicket" table="concert_ticket" catalog="konserkuy" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="userId" type="int">
+            <column name="user_id" not-null="true" />
+        </property>
+        <property name="concertId" type="int">
+            <column name="concert_id" not-null="true" />
+        </property>
+        <property name="fullName" type="string">
+            <column name="full_name" length="50" not-null="true" />
+        </property>
+        <property name="phoneNumber" type="string">
+            <column name="phone_number" length="25" not-null="true" />
+        </property>
+        <property name="idCard" type="string">
+            <column name="id_card" length="50" not-null="true" />
+        </property>
+        <property name="createdAt" type="timestamp">
+            <column name="created_at" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
